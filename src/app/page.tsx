@@ -31,12 +31,15 @@ export default function Home() {
     setStep((current) => (current > 1 ? current - 1 : current));
   }, []);
 
-  const updateStepData = useCallback((stepKey: keyof IFormData, data: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      [stepKey]: data,
-    }));
-  }, []);
+  const updateStepData = useCallback(
+    <T extends keyof IFormData>(stepKey: T, data: IFormData[T]) => {
+      setFormData((prev) => ({
+        ...prev,
+        [stepKey]: data,
+      }));
+    },
+    []
+  );
 
   const stepContent = useMemo(() => {
     switch (step) {
